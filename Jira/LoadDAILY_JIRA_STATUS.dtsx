@@ -1,0 +1,939 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/16/2022 2:46:52 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SUSDAY2586"
+  DTS:CreatorName="CORP\da230140"
+  DTS:DTSID="{A20B8878-F2AF-4392-A90A-7D6375A988D4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.113"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="LoadDAILY_JIRA_STATUS"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{35E6F4AC-9A1C-4D76-9896-05FA0FE360A6}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load to DAILY_JIRA_STATUS container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{02c49e8d-0c17-437d-b4d1-ee03c2ebeb82}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load to DAILY_JIRA_STATUS container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{cee150bc-1323-4d30-afe7-32563141a439}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load to DAILY_JIRA_STATUS"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS"
+                  componentClassID="Attunity.SSISOraDst"
+                  contactInfo="Oracle Destination;Microsoft Connector for Oracle by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+                  description="Microsoft Oracle Destination Component by Attunity"
+                  name="DAILY_JIRA_STATUS"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Apply fast 'Direct Path' load."
+                      name="FastLoad">true</property>
+                    <property
+                      dataType="System.String"
+                      description="Destination table"
+                      expressionType="Notify"
+                      name="TableName">DAILY_JIRA_STATUS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum errors allowed."
+                      expressionType="Notify"
+                      name="MaxErrors">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Table sub-name (Partition, SubPartition)."
+                      expressionType="Notify"
+                      name="TableSubname"></property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Enables parallel loading of the target table."
+                      expressionType="Notify"
+                      name="Parallel">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Disables target table logging. Used to minimize the amount of redo generated."
+                      expressionType="Notify"
+                      name="NoLogging">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Trasfer data buffer size (KB)."
+                      expressionType="Notify"
+                      name="TransferBufferSize">64</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The code page to use when code page information is unavailable from the data source."
+                      expressionType="Notify"
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows inserted in a batch."
+                      expressionType="Notify"
+                      name="BatchSize">100</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows inserted under the same transaction."
+                      expressionType="Notify"
+                      name="TransactionSize">100</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Determines the chunk size allocation for LOB columns"
+                      expressionType="Notify"
+                      name="LobChunkSize">32768</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Connections[MSOraConnection]"
+                      connectionManagerID="{5C92D0D3-E8BD-4705-A9B8-C6207FB0BC25}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Oracle_Destination_Attunity]"
+                      description="The Oracle runtime connection"
+                      name="MSOraConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Oracle Destination Input"
+                      truncationRowDisposition="FailComponent">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[PKEY]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="PKEY"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[PKEY]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[PKEY]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[PROJECT]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="PROJECT"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[PROJECT]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[PROJECT]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[ISSUEKEY]"
+                          cachedDataType="wstr"
+                          cachedLength="296"
+                          cachedName="ISSUEKEY"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ISSUEKEY]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ISSUEKEY]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[ISSUEID]"
+                          cachedDataType="numeric"
+                          cachedName="ISSUEID"
+                          cachedPrecision="18"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ISSUEID]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ISSUEID]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[REPORTER]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="REPORTER"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[REPORTER]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[REPORTER]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[ASSIGNEE]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="ASSIGNEE"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ASSIGNEE]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ASSIGNEE]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[SUMMARY]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="SUMMARY"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[SUMMARY]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[SUMMARY]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[PRIORITY]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="PRIORITY"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[PRIORITY]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[PRIORITY]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[RESOLUTION]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="RESOLUTION"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTION]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[RESOLUTION]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[ISSUESTATUS]"
+                          cachedDataType="wstr"
+                          cachedLength="60"
+                          cachedName="ISSUESTATUS"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ISSUESTATUS]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ISSUESTATUS]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[CREATED]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="CREATED"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[CREATED]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[CREATED]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[UPDATED]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="UPDATED"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[UPDATED]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[UPDATED]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[DUEDATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="DUEDATE"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[DUEDATE]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[DUEDATE]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[RESOLUTIONDATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="RESOLUTIONDATE"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTIONDATE]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[RESOLUTIONDATE]" />
+                        <inputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].Columns[SYSDATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="SYSDATE"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[DATE_LOADED]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[SYSDATE]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[PROJECT]"
+                          dataType="wstr"
+                          length="255"
+                          name="PROJECT" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ISSUEKEY]"
+                          dataType="wstr"
+                          length="296"
+                          name="ISSUEKEY" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ISSUEID]"
+                          dataType="numeric"
+                          name="ISSUEID"
+                          precision="18" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[PKEY]"
+                          dataType="wstr"
+                          length="255"
+                          name="PKEY" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[REPORTER]"
+                          dataType="wstr"
+                          length="255"
+                          name="REPORTER" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ASSIGNEE]"
+                          dataType="wstr"
+                          length="255"
+                          name="ASSIGNEE" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[SUMMARY]"
+                          dataType="wstr"
+                          length="255"
+                          name="SUMMARY" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[PRIORITY]"
+                          dataType="wstr"
+                          length="255"
+                          name="PRIORITY" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTION]"
+                          dataType="wstr"
+                          length="255"
+                          name="RESOLUTION" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ISSUESTATUS]"
+                          dataType="wstr"
+                          length="255"
+                          name="ISSUESTATUS" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[CREATED]"
+                          dataType="dbTimeStamp"
+                          name="CREATED" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[UPDATED]"
+                          dataType="dbTimeStamp"
+                          name="UPDATED" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[DUEDATE]"
+                          dataType="dbTimeStamp"
+                          name="DUEDATE" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTIONDATE]"
+                          dataType="dbTimeStamp"
+                          name="RESOLUTIONDATE" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[DATE_LOADED]"
+                          dataType="dbTimeStamp"
+                          name="DATE_LOADED" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output]"
+                      isErrorOut="true"
+                      name="Oracle Destination Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[PROJECT]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[PROJECT]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[PROJECT]"
+                          name="PROJECT" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ISSUEKEY]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ISSUEKEY]"
+                          length="296"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ISSUEKEY]"
+                          name="ISSUEKEY" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ISSUEID]"
+                          dataType="numeric"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ISSUEID]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ISSUEID]"
+                          name="ISSUEID"
+                          precision="18" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[PKEY]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[PKEY]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[PKEY]"
+                          name="PKEY" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[REPORTER]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[REPORTER]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[REPORTER]"
+                          name="REPORTER" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ASSIGNEE]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ASSIGNEE]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ASSIGNEE]"
+                          name="ASSIGNEE" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[SUMMARY]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[SUMMARY]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[SUMMARY]"
+                          name="SUMMARY" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[PRIORITY]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[PRIORITY]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[PRIORITY]"
+                          name="PRIORITY" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[RESOLUTION]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTION]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[RESOLUTION]"
+                          name="RESOLUTION" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ISSUESTATUS]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[ISSUESTATUS]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ISSUESTATUS]"
+                          name="ISSUESTATUS" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[CREATED]"
+                          dataType="dbTimeStamp"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[CREATED]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[CREATED]"
+                          name="CREATED" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[UPDATED]"
+                          dataType="dbTimeStamp"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[UPDATED]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[UPDATED]"
+                          name="UPDATED" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[DUEDATE]"
+                          dataType="dbTimeStamp"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[DUEDATE]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[DUEDATE]"
+                          name="DUEDATE" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[RESOLUTIONDATE]"
+                          dataType="dbTimeStamp"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTIONDATE]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[RESOLUTIONDATE]"
+                          name="RESOLUTIONDATE" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[DATE_LOADED]"
+                          dataType="dbTimeStamp"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input].ExternalColumns[DATE_LOADED]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[DATE_LOADED]"
+                          name="DATE_LOADED" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Outputs[Oracle Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="QurrySource"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable">User::tb_project</property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select  P.pname PROJECT ,iid.jirakey ISSUEKEY
+,j.id issueid 
+,P.PKEY
+,REPORTER
+,ASSIGNEE
+,SUMMARY
+,PRIORITY
+,RESOLUTION
+,iss.pname ISSUESTATUS
+,CREATED
+,UPDATED
+,DUEDATE
+,RESOLUTIONDATE
+,SYSDATE from(select * from jiraissue  where issuetype = 1 and project in (30657,38756))j
+left outer join issue_id iid on iid.issueid = j.id
+left outer join issuestatus iss on j.issuestatus =iss.id
+left outer join project P on p.id = j.project</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Connections[OleDbConnection]"
+                      connectionManagerID="{8F4107AD-04FB-494B-9AE6-D531330D669D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[Jira_OLEDB_Destination]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[PKEY]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[PKEY]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[PKEY]"
+                          name="PKEY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[PROJECT]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[PROJECT]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[PROJECT]"
+                          name="PROJECT"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ISSUEKEY]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[ISSUEKEY]"
+                          length="296"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ISSUEKEY]"
+                          name="ISSUEKEY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ISSUEID]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[ISSUEID]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ISSUEID]"
+                          name="ISSUEID"
+                          precision="18"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[REPORTER]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[REPORTER]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[REPORTER]"
+                          name="REPORTER"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ASSIGNEE]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[ASSIGNEE]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ASSIGNEE]"
+                          name="ASSIGNEE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[SUMMARY]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[SUMMARY]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[SUMMARY]"
+                          name="SUMMARY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[PRIORITY]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[PRIORITY]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[PRIORITY]"
+                          name="PRIORITY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[RESOLUTION]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[RESOLUTION]"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[RESOLUTION]"
+                          name="RESOLUTION"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ISSUESTATUS]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[ISSUESTATUS]"
+                          length="60"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[ISSUESTATUS]"
+                          name="ISSUESTATUS"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[CREATED]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[CREATED]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[CREATED]"
+                          name="CREATED"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[UPDATED]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[UPDATED]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[UPDATED]"
+                          name="UPDATED"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[DUEDATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[DUEDATE]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[DUEDATE]"
+                          name="DUEDATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[RESOLUTIONDATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[RESOLUTIONDATE]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[RESOLUTIONDATE]"
+                          name="RESOLUTIONDATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[SYSDATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[SYSDATE]"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].Columns[SYSDATE]"
+                          name="SYSDATE"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[PKEY]"
+                          dataType="wstr"
+                          length="255"
+                          name="PKEY" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[PROJECT]"
+                          dataType="wstr"
+                          length="255"
+                          name="PROJECT" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[ISSUEKEY]"
+                          dataType="wstr"
+                          length="296"
+                          name="ISSUEKEY" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[ISSUEID]"
+                          dataType="numeric"
+                          name="ISSUEID"
+                          precision="18" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[REPORTER]"
+                          dataType="wstr"
+                          length="255"
+                          name="REPORTER" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[ASSIGNEE]"
+                          dataType="wstr"
+                          length="255"
+                          name="ASSIGNEE" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[SUMMARY]"
+                          dataType="wstr"
+                          length="255"
+                          name="SUMMARY" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[PRIORITY]"
+                          dataType="wstr"
+                          length="255"
+                          name="PRIORITY" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[RESOLUTION]"
+                          dataType="wstr"
+                          length="255"
+                          name="RESOLUTION" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[ISSUESTATUS]"
+                          dataType="wstr"
+                          length="60"
+                          name="ISSUESTATUS" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[CREATED]"
+                          dataType="dbTimeStamp"
+                          name="CREATED" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[UPDATED]"
+                          dataType="dbTimeStamp"
+                          name="UPDATED" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[DUEDATE]"
+                          dataType="dbTimeStamp"
+                          name="DUEDATE" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[RESOLUTIONDATE]"
+                          dataType="dbTimeStamp"
+                          name="RESOLUTIONDATE" />
+                        <externalMetadataColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output].ExternalColumns[SYSDATE]"
+                          dataType="dbTimeStamp"
+                          name="SYSDATE" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[PROJECT]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[PROJECT]"
+                          name="PROJECT" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ISSUEKEY]"
+                          dataType="wstr"
+                          length="296"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ISSUEKEY]"
+                          name="ISSUEKEY" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ISSUEID]"
+                          dataType="numeric"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ISSUEID]"
+                          name="ISSUEID"
+                          precision="18" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[PKEY]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[PKEY]"
+                          name="PKEY" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[REPORTER]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[REPORTER]"
+                          name="REPORTER" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ASSIGNEE]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ASSIGNEE]"
+                          name="ASSIGNEE" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[SUMMARY]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[SUMMARY]"
+                          name="SUMMARY" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[PRIORITY]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[PRIORITY]"
+                          name="PRIORITY" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[RESOLUTION]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[RESOLUTION]"
+                          name="RESOLUTION" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ISSUESTATUS]"
+                          dataType="wstr"
+                          length="60"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ISSUESTATUS]"
+                          name="ISSUESTATUS" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[CREATED]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[CREATED]"
+                          name="CREATED" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[UPDATED]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[UPDATED]"
+                          name="UPDATED" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[DUEDATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[DUEDATE]"
+                          name="DUEDATE" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[RESOLUTIONDATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[RESOLUTIONDATE]"
+                          name="RESOLUTIONDATE" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[SYSDATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[SYSDATE]"
+                          name="SYSDATE" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS.Paths[OLE DB Source Output]"
+                  endId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS.Inputs[Oracle Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="218,42"
+          Id="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS"
+          TopLeft="45.722222222222,115.277777777778" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="335,323"
+          Size="335,366"
+          Id="Package\Load to DAILY_JIRA_STATUS container"
+          TopLeft="59.777777777778,133.222222222222" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS"
+          TopLeft="339,247" />
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource"
+          TopLeft="339,30" />
+        <EdgeLayout
+          Id="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS.Paths[OLE DB Source Output]"
+          TopLeft="408,72">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="20.5,175"
+              Start="0,0"
+              End="20.5,167.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,83.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,83.5"
+                    Point2="0,87.5"
+                    Point3="4,87.5" />
+                  <mssgle:LineSegment
+                    End="16.5,87.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="16.5,87.5"
+                    Point2="20.5,87.5"
+                    Point3="20.5,91.5" />
+                  <mssgle:LineSegment
+                    End="20.5,167.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\DAILY_JIRA_STATUS">
+    <Properties>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load to DAILY_JIRA_STATUS container\Load to DAILY_JIRA_STATUS\QurrySource">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,1197 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/25/2021 1:56:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SUSDAY2586"
+  DTS:CreatorName="CORP\da230140"
+  DTS:DTSID="{6DEC95CA-1820-4298-811B-4FF7016FFA71}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.113"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package3"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{90926C97-F81C-47BB-893F-7A703229B041}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{7c5dde1c-02c9-46d8-9c5d-93eb7a6ef616}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Load to DEFECT_HISTORY"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{b5c1c503-863e-4f47-a2d0-7628bd6bcfe0}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load to DEFECT_HISTORY"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Inputs[Data Conversion Input].Columns[YEARMONTHNUM]"
+                          cachedDataType="wstr"
+                          cachedLength="38"
+                          cachedName="YEARMONTHNUM"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[YEARMONTHNUM]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Outputs[Data Conversion Output].Columns[YEARMONTHNUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Outputs[Data Conversion Output].Columns[YEARMONTHNUM]"
+                          name="YEARMONTHNUM"
+                          precision="18"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[YEARMONTHNUM]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY"
+                  componentClassID="Attunity.SSISOraDst"
+                  contactInfo="Oracle Destination;Microsoft Connector for Oracle by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+                  description="Microsoft Oracle Destination Component by Attunity"
+                  name="DEFECT_HISTORY"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Apply fast 'Direct Path' load."
+                      name="FastLoad">true</property>
+                    <property
+                      dataType="System.String"
+                      description="Destination table"
+                      expressionType="Notify"
+                      name="TableName">JIRAUSER."DEFECT_HISTORY"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum errors allowed."
+                      expressionType="Notify"
+                      name="MaxErrors">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Table sub-name (Partition, SubPartition)."
+                      expressionType="Notify"
+                      name="TableSubname"></property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Enables parallel loading of the target table."
+                      expressionType="Notify"
+                      name="Parallel">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Disables target table logging. Used to minimize the amount of redo generated."
+                      expressionType="Notify"
+                      name="NoLogging">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Trasfer data buffer size (KB)."
+                      expressionType="Notify"
+                      name="TransferBufferSize">64</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The code page to use when code page information is unavailable from the data source."
+                      expressionType="Notify"
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows inserted in a batch."
+                      expressionType="Notify"
+                      name="BatchSize">100</property>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of rows inserted under the same transaction."
+                      expressionType="Notify"
+                      name="TransactionSize">100</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Determines the chunk size allocation for LOB columns"
+                      expressionType="Notify"
+                      name="LobChunkSize">32768</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Connections[MSOraConnection]"
+                      connectionManagerID="{5C92D0D3-E8BD-4705-A9B8-C6207FB0BC25}:invalid"
+                      connectionManagerRefId="{5C92D0D3-E8BD-4705-A9B8-C6207FB0BC25}:invalid"
+                      description="The Oracle runtime connection"
+                      name="MSOraConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Oracle Destination Input"
+                      truncationRowDisposition="FailComponent">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[ISSUEID]"
+                          cachedDataType="numeric"
+                          cachedName="ISSUEID"
+                          cachedPrecision="18"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ISSUEID]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ISSUEID]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[SEVERITY]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="SEVERITY"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[SEVERITY]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[SEVERITY]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[PRIORITY]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="PRIORITY"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[PRIORITY]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[PRIORITY]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[ASSIGNEE]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="ASSIGNEE"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ASSIGNEE]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ASSIGNEE]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[RESOLVED]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="RESOLVED"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[RESOLVED]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[RESOLUTION]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="RESOLUTION"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTION]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[RESOLUTION]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[VERIFIED_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="VERIFIED_DATE"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[VERIFIED_DATE]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[VERIFIED_DATE]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[RESOLVED_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="RESOLVED_DATE"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED_DATE]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[RESOLVED_DATE]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[STATUS]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="STATUS"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[STATUS]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[STATUS]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[CREATED]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="CREATED"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[CREATED]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[CREATED]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[ISSUE_KEY]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="ISSUE_KEY"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ISSUE_KEY]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ISSUE_KEY]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[FILTER_ID]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="FILTER_ID"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[FILTER_ID]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[FILTER_ID]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[PRODUCT]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="PRODUCT"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[PRODUCT]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[PRODUCT]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[INDUSTRY]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="INDUSTRY"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[INDUSTRY]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[INDUSTRY]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[ORGANISATION]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="ORGANISATION"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ORGANISATION]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ORGANISATION]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].Columns[YEARMONTHNUM]"
+                          cachedDataType="numeric"
+                          cachedName="YEARMONTHNUM"
+                          cachedPrecision="18"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[YEARMONTHNUM]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Outputs[Data Conversion Output].Columns[YEARMONTHNUM]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[SEVERITY]"
+                          dataType="wstr"
+                          length="4000"
+                          name="SEVERITY" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[PRIORITY]"
+                          dataType="wstr"
+                          length="4000"
+                          name="PRIORITY" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ASSIGNEE]"
+                          dataType="wstr"
+                          length="4000"
+                          name="ASSIGNEE" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED]"
+                          dataType="dbTimeStamp"
+                          name="RESOLVED" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTION]"
+                          dataType="wstr"
+                          length="4000"
+                          name="RESOLUTION" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[VERIFIED_DATE]"
+                          dataType="dbTimeStamp"
+                          name="VERIFIED_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED_DATE]"
+                          dataType="dbTimeStamp"
+                          name="RESOLVED_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[STATUS]"
+                          dataType="wstr"
+                          length="4000"
+                          name="STATUS" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[YEARMONTHNUM]"
+                          dataType="r8"
+                          name="YEARMONTHNUM" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[CREATED]"
+                          dataType="dbTimeStamp"
+                          name="CREATED" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ISSUE_KEY]"
+                          dataType="wstr"
+                          length="50"
+                          name="ISSUE_KEY" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ISSUEID]"
+                          dataType="numeric"
+                          name="ISSUEID"
+                          precision="18" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[FILTER_ID]"
+                          dataType="wstr"
+                          length="50"
+                          name="FILTER_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[PRODUCT]"
+                          dataType="wstr"
+                          length="100"
+                          name="PRODUCT" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[INDUSTRY]"
+                          dataType="wstr"
+                          length="100"
+                          name="INDUSTRY" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ORGANISATION]"
+                          dataType="wstr"
+                          length="100"
+                          name="ORGANISATION" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output]"
+                      isErrorOut="true"
+                      name="Oracle Destination Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[SEVERITY]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[SEVERITY]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[SEVERITY]"
+                          name="SEVERITY" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[PRIORITY]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[PRIORITY]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[PRIORITY]"
+                          name="PRIORITY" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ASSIGNEE]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ASSIGNEE]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ASSIGNEE]"
+                          name="ASSIGNEE" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[RESOLVED]"
+                          dataType="dbTimeStamp"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[RESOLVED]"
+                          name="RESOLVED" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[RESOLUTION]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTION]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[RESOLUTION]"
+                          name="RESOLUTION" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[VERIFIED_DATE]"
+                          dataType="dbTimeStamp"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[VERIFIED_DATE]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[VERIFIED_DATE]"
+                          name="VERIFIED_DATE" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[RESOLVED_DATE]"
+                          dataType="dbTimeStamp"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED_DATE]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[RESOLVED_DATE]"
+                          name="RESOLVED_DATE" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[STATUS]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[STATUS]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[STATUS]"
+                          name="STATUS" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[YEARMONTHNUM]"
+                          dataType="r8"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[YEARMONTHNUM]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[YEARMONTHNUM]"
+                          name="YEARMONTHNUM" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[CREATED]"
+                          dataType="dbTimeStamp"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[CREATED]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[CREATED]"
+                          name="CREATED" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ISSUE_KEY]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ISSUE_KEY]"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ISSUE_KEY]"
+                          name="ISSUE_KEY" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ISSUEID]"
+                          dataType="numeric"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ISSUEID]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ISSUEID]"
+                          name="ISSUEID"
+                          precision="18" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[FILTER_ID]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[FILTER_ID]"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[FILTER_ID]"
+                          name="FILTER_ID" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[PRODUCT]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[PRODUCT]"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[PRODUCT]"
+                          name="PRODUCT" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[INDUSTRY]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[INDUSTRY]"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[INDUSTRY]"
+                          name="INDUSTRY" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ORGANISATION]"
+                          dataType="wstr"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input].ExternalColumns[ORGANISATION]"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ORGANISATION]"
+                          name="ORGANISATION" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Outputs[Oracle Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Query Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">with main1 as (select ci.*,cg.created changedate,organisation,industry,product,
+d.filter_id,d.id issueid,d.issue_key,d.created,
+extract(year from cg.created)*10000000000+extract(month from cg.created)*100000000+extract(day from cg.created)*1000000+
+ substr(to_char(cg.created,'DD-MON-YY HH24:MI:SS'),-8,2)*10000+substr(to_char(cg.created,'DD-MON-YY HH24:MI:SS'),-5,2)*100
+ +substr(to_char(cg.created,'DD-MON-YY HH24:MI:SS'),-2,2) changetime,
+extract(year from cg.created)*100 + extract(month from cg.created) yearmonthnum
+from (select * from defectdata where REGEXP_LIKE(filter_id, '^[[:digit:]]+$')) d 
+left outer join changegroup CG on cg.issueid = d.id 
+left outer join changeitem ci on ci.groupid = cg.id
+right outer join quality_metrics Q on Q.ext_defect_backlog_filter = d.filter_id
+where extract(year from cg.created)*100+extract(month from cg.created)&gt; 
+  extract(year from add_months(sysdate,-45))*100+extract(month from add_months(sysdate,-45)))
+
+
+select distinct
+T2.ORGANISATION,
+T2.INDUSTRY,
+T2.PRODUCT,
+T2.FILTER_ID,
+T2.ISSUEID,
+T2.ISSUE_KEY,
+T2.CREATED,
+T2.YEARMONTHNUM,
+case when T2.STATUS is null then d.status else t2.status end status,
+T2.RESOLVED_DATE,
+T2.VERIFIED_DATE,
+T2.RESOLUTION,
+T2.RESOLVED,
+case when T2.ASSIGNEE is  null then d.assignee else T2.ASSIGNEE end assignee,
+case when T2.PRIORITY is  null then d.priority else T2.PRIORITY end priority ,
+case when T2.SEVERITY is  null then d.severity else T2.SEVERITY end severity from 
+(select organisation,industry,product,filter_id,issueid,issue_key,created,YEARMONTHNUM,
+LAST_VALUE(status IGNORE NULLS) OVER (PARTITION BY ISSUE_KEY ORDER BY YEARMONTHNUM
+ROWS BETWEEN unbounded preceding and current row) status
+,LAST_VALUE(date_resolved IGNORE NULLS) OVER (PARTITION BY ISSUE_KEY ORDER BY YEARMONTHNUM
+ROWS BETWEEN unbounded preceding and current row) resolved_DATE
+,LAST_VALUE(date_verified IGNORE NULLS) OVER (PARTITION BY ISSUE_KEY ORDER BY YEARMONTHNUM
+ROWS BETWEEN unbounded preceding and current row) VERIFIED_DATE
+,LAST_VALUE(resolution IGNORE NULLS) OVER (PARTITION BY ISSUE_KEY ORDER BY YEARMONTHNUM
+ROWS BETWEEN unbounded preceding and current row) resolution
+,LAST_VALUE(resolved IGNORE NULLS) OVER (PARTITION BY ISSUE_KEY ORDER BY YEARMONTHNUM
+ROWS BETWEEN unbounded preceding and current row) resolved
+,LAST_VALUE(assignee IGNORE NULLS) OVER (PARTITION BY ISSUE_KEY ORDER BY YEARMONTHNUM
+ROWS BETWEEN unbounded preceding and current row) assignee
+,LAST_VALUE(priority IGNORE NULLS) OVER (PARTITION BY ISSUE_KEY ORDER BY YEARMONTHNUM
+ROWS BETWEEN unbounded preceding and current row) priority
+,LAST_VALUE(severity IGNORE NULLS) OVER (PARTITION BY ISSUE_KEY ORDER BY YEARMONTHNUM
+ROWS BETWEEN unbounded preceding and current row) severity from (select organisation,industry,product,filter_id,issue_key,created,
+issueid,yearmonthnum,LISTAGG(status,',') WITHIN GROUP (ORDER BY ISSUEID,yearmonthnum)as status,
+to_date(TO_CHAR(LISTAGG(DATE_RESOLVED,',') WITHIN GROUP (ORDER BY ISSUEID,yearmonthnum)),'DD-MON-YYYY') date_resolved,
+to_date(LISTAGG(DATE_VERIFIED,',') WITHIN GROUP (ORDER BY ISSUEID,yearmonthnum),'DD-MON-YYYY') DATE_VERIFIED,
+LISTAGG(resolution,',') WITHIN GROUP (ORDER BY ISSUEID,yearmonthnum)resolution,
+to_date(LISTAGG(resolved,',') WITHIN GROUP (ORDER BY ISSUEID,yearmonthnum),'DD-MON-YYYY')resolved,
+LISTAGG(assignee,',') WITHIN GROUP (ORDER BY ISSUEID,yearmonthnum)assignee,
+LISTAGG(severity,',') WITHIN GROUP (ORDER BY ISSUEID,yearmonthnum)severity,
+LISTAGG(priority,',') WITHIN GROUP (ORDER BY ISSUEID,yearmonthnum)priority
+from (select * from (select
+organisation,industry,product,filter_id,issue_key,created,
+issueid,yearmonthnum,case when field = 'status' then newstring end as status,
+case when field = 'Date Resolved' then to_date(to_char(to_date(REGEXP_REPLACE(newvalue, '[^0-9A-Za-z]', '') ,'yyyymmdd'),'mm/dd/yyyy'),'mm/dd/yyyy') end as DATE_RESOLVED,
+case when field = 'Date Verified' then to_date(to_char(to_date(REGEXP_REPLACE(newvalue, '[^0-9A-Za-z]', '') ,'yyyymmdd'),'mm/dd/yyyy'),'mm/dd/yyyy') end as DATE_VERIFIED,
+case when field = 'resolution' then newstring end as resolution,
+case when field = 'resolution' then to_date(changedate,'DD-MON-YYYY') end as resolved,
+case when field = 'assignee' then newstring end as assignee,
+case when field = 'Severity' then newstring end as severity,
+case when field = 'Priority' then newstring end as priority,
+rank() over (partition by issueid,field,yearmonthnum order by changetime desc)rank1
+from main1) where rank1 =1)
+group by organisation,industry,product,filter_id,issue_key,created,
+issueid,yearmonthnum) T1) T2
+left outer join defectdata d on d.issue_key = T2.issue_key and t2.filter_id = d.filter_id</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable">User::qw_Desti_mulsql</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Connections[OleDbConnection]"
+                      connectionManagerID="{8F4107AD-04FB-494B-9AE6-D531330D669D}:invalid"
+                      connectionManagerRefId="{8F4107AD-04FB-494B-9AE6-D531330D669D}:invalid"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ISSUEID]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[ISSUEID]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ISSUEID]"
+                          name="ISSUEID"
+                          precision="18"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ORGANISATION]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[ORGANISATION]"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ORGANISATION]"
+                          name="ORGANISATION"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[INDUSTRY]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[INDUSTRY]"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[INDUSTRY]"
+                          name="INDUSTRY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[PRODUCT]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[PRODUCT]"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[PRODUCT]"
+                          name="PRODUCT"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[FILTER_ID]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[FILTER_ID]"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[FILTER_ID]"
+                          name="FILTER_ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ISSUE_KEY]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[ISSUE_KEY]"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ISSUE_KEY]"
+                          name="ISSUE_KEY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[CREATED]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[CREATED]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[CREATED]"
+                          name="CREATED"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[YEARMONTHNUM]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[YEARMONTHNUM]"
+                          length="38"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[YEARMONTHNUM]"
+                          name="YEARMONTHNUM"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[STATUS]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[STATUS]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[STATUS]"
+                          name="STATUS"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[RESOLVED_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[RESOLVED_DATE]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[RESOLVED_DATE]"
+                          name="RESOLVED_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[VERIFIED_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[VERIFIED_DATE]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[VERIFIED_DATE]"
+                          name="VERIFIED_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[RESOLUTION]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[RESOLUTION]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[RESOLUTION]"
+                          name="RESOLUTION"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[RESOLVED]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[RESOLVED]"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[RESOLVED]"
+                          name="RESOLVED"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ASSIGNEE]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[ASSIGNEE]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[ASSIGNEE]"
+                          name="ASSIGNEE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[PRIORITY]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[PRIORITY]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[PRIORITY]"
+                          name="PRIORITY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[SEVERITY]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[SEVERITY]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].Columns[SEVERITY]"
+                          name="SEVERITY"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[ISSUEID]"
+                          dataType="numeric"
+                          name="ISSUEID"
+                          precision="18" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[ORGANISATION]"
+                          dataType="wstr"
+                          length="100"
+                          name="ORGANISATION" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[INDUSTRY]"
+                          dataType="wstr"
+                          length="100"
+                          name="INDUSTRY" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[PRODUCT]"
+                          dataType="wstr"
+                          length="100"
+                          name="PRODUCT" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[FILTER_ID]"
+                          dataType="wstr"
+                          length="50"
+                          name="FILTER_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[ISSUE_KEY]"
+                          dataType="wstr"
+                          length="50"
+                          name="ISSUE_KEY" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[CREATED]"
+                          dataType="dbTimeStamp"
+                          name="CREATED" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[YEARMONTHNUM]"
+                          dataType="wstr"
+                          length="38"
+                          name="YEARMONTHNUM" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[STATUS]"
+                          dataType="wstr"
+                          length="4000"
+                          name="STATUS" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[RESOLVED_DATE]"
+                          dataType="dbTimeStamp"
+                          name="RESOLVED_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[VERIFIED_DATE]"
+                          dataType="dbTimeStamp"
+                          name="VERIFIED_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[RESOLUTION]"
+                          dataType="wstr"
+                          length="4000"
+                          name="RESOLUTION" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[RESOLVED]"
+                          dataType="dbTimeStamp"
+                          name="RESOLVED" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[ASSIGNEE]"
+                          dataType="wstr"
+                          length="4000"
+                          name="ASSIGNEE" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[PRIORITY]"
+                          dataType="wstr"
+                          length="4000"
+                          name="PRIORITY" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output].ExternalColumns[SEVERITY]"
+                          dataType="wstr"
+                          length="4000"
+                          name="SEVERITY" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ORGANISATION]"
+                          dataType="wstr"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ORGANISATION]"
+                          name="ORGANISATION" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[INDUSTRY]"
+                          dataType="wstr"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[INDUSTRY]"
+                          name="INDUSTRY" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[PRODUCT]"
+                          dataType="wstr"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[PRODUCT]"
+                          name="PRODUCT" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[FILTER_ID]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[FILTER_ID]"
+                          name="FILTER_ID" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ISSUEID]"
+                          dataType="numeric"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ISSUEID]"
+                          name="ISSUEID"
+                          precision="18" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ISSUE_KEY]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ISSUE_KEY]"
+                          name="ISSUE_KEY" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[CREATED]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[CREATED]"
+                          name="CREATED" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[YEARMONTHNUM]"
+                          dataType="wstr"
+                          length="38"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[YEARMONTHNUM]"
+                          name="YEARMONTHNUM" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[STATUS]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[STATUS]"
+                          name="STATUS" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[RESOLVED_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[RESOLVED_DATE]"
+                          name="RESOLVED_DATE" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[VERIFIED_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[VERIFIED_DATE]"
+                          name="VERIFIED_DATE" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[RESOLUTION]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[RESOLUTION]"
+                          name="RESOLUTION" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[RESOLVED]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[RESOLVED]"
+                          name="RESOLVED" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ASSIGNEE]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ASSIGNEE]"
+                          name="ASSIGNEE" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[PRIORITY]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[PRIORITY]"
+                          name="PRIORITY" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[SEVERITY]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[SEVERITY]"
+                          name="SEVERITY" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Load to DEFECT_HISTORY.Paths[Data Conversion Output]"
+                  endId="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY.Inputs[Oracle Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\Sequence Container\Load to DEFECT_HISTORY.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion.Inputs[Data Conversion Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\TRUNCATE DEFECT_HISTORY"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1a9a3ffa-cb9f-40b1-bbb2-4b3fad76c92e}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="TRUNCATE DEFECT_HISTORY"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{8F4107AD-04FB-494B-9AE6-D531330D669D}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="TRUNCATE TABLE JIRAUSER.DEFECT_HISTORY" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{66011f8f-c5b1-4ddd-a2e1-d344fd06b39a}"
+          DTS:From="Package\Sequence Container\TRUNCATE DEFECT_HISTORY"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Sequence Container\Load to DEFECT_HISTORY" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="205,42"
+          Id="Package\Sequence Container\Load to DEFECT_HISTORY"
+          TopLeft="28.5,121.2" />
+        <NodeLayout
+          Size="231,42"
+          Id="Package\Sequence Container\TRUNCATE DEFECT_HISTORY"
+          TopLeft="27.5,38.8" />
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="143,80.8">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-12,40.4"
+              Start="0,0"
+              End="-12,32.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.2"
+                    Point2="0,20.2"
+                    Point3="-4,20.2" />
+                  <mssgle:LineSegment
+                    End="-8,20.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-8,20.2"
+                    Point2="-12,20.2"
+                    Point3="-12,24.2" />
+                  <mssgle:LineSegment
+                    End="-12,32.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="276,214"
+          Size="276,257"
+          Id="Package\Sequence Container"
+          TopLeft="181,224.3" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Load to DEFECT_HISTORY">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY"
+          TopLeft="259.5,246" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source"
+          TopLeft="258.5,55" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Sequence Container\Load to DEFECT_HISTORY\Data Conversion"
+          TopLeft="259,137" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Load to DEFECT_HISTORY.Paths[OLE DB Source Output]"
+          TopLeft="335.5,97">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40"
+              Start="0,0"
+              End="0,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\Load to DEFECT_HISTORY.Paths[Data Conversion Output]"
+          TopLeft="339.75,179">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,67"
+              Start="0,0"
+              End="0,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load to DEFECT_HISTORY\DEFECT_HISTORY">
+    <Properties>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load to DEFECT_HISTORY\Query Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

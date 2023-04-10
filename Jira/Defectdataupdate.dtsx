@@ -1,0 +1,1733 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/31/2018 1:53:02 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SUSDAY2586"
+  DTS:CreatorName="CORP\da230140"
+  DTS:DTSID="{1CCB0EEB-F800-4CF1-B3EC-5602B4BB97D0}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.113"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Defectdataupdate"
+  DTS:PackageType="5"
+  DTS:VersionBuild="125"
+  DTS:VersionGUID="{3A12BB4F-DF5F-4074-BB28-8741474D14A2}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DELETE D3 DATA FROM Defectdata"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{52440dda-7125-42de-ac32-faccb4d12637}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DELETE D3 DATA FROM Defectdata"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F4107AD-04FB-494B-9AE6-D531330D669D}"
+          SQLTask:SqlStatementSource="delete from defectdata where filter_id like 'D3_%'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DELETE DUPLICATES IN MRR_DEFECTDATA"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{781CF15D-849D-4C66-9B93-41B79602DFE0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DELETE DUPLICATES IN MRR_DEFECTDATA"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F4107AD-04FB-494B-9AE6-D531330D669D}"
+          SQLTask:SqlStatementSource="DELETE mrr_defectdata&#xA;  WHERE ROWID NOT IN (&#xA;    SELECT MIN(ROWID)&#xA;    FROM mrr_defectdata&#xA;    GROUP BY filter_id, issue_key&#xA;  )&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DELETE FROM Defectdata"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{EC913D83-6996-4388-A39B-B25814B0B76A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DELETE FROM Defectdata"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F4107AD-04FB-494B-9AE6-D531330D669D}"
+          SQLTask:SqlStatementSource="delete FROM defectdata trg&#xA;WHERE NOT EXISTS (SELECT 1 FROM mrr_defectdata src  WHERE src.Issue_key  = trg.Issue_key and src.Filter_id  = trg.Filter_id) " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load D3 Data to Defect Data"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{31e01a3d-ba3f-4206-8052-f4492de27363}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load D3 Data to Defect Data"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load D3 Data to Defect Data\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load D3 Data to Defect Data\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Data Conversion.Inputs[Data Conversion Input].Columns[PRIORITY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="7"
+                      cachedName="PRIORITY"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[PRIORITY]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Data Conversion.Inputs[Data Conversion Input].Columns[SEVERITY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="7"
+                      cachedName="SEVERITY"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SEVERITY]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Data Conversion.Inputs[Data Conversion Input].Columns[STATUS]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="STATUS"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[STATUS]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Load D3 Data to Defect Data\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output].Columns[PRIORITY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="7"
+                      lineageId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output].Columns[PRIORITY]"
+                      name="PRIORITY"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[PRIORITY]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output].Columns[SEVERITY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="7"
+                      lineageId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output].Columns[SEVERITY]"
+                      name="SEVERITY"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SEVERITY]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output].Columns[STATUS]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output].Columns[STATUS]"
+                      name="STATUS"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[STATUS]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Load D3 Data to Defect Data\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load D3 Data to Defect Data\Defectdata"
+              componentClassID="Attunity.SSISOraDst"
+              contactInfo="Oracle Destination;Microsoft Connector for Oracle by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="Microsoft Oracle Destination Component by Attunity"
+              name="Defectdata"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Apply fast 'Direct Path' load."
+                  name="FastLoad">true</property>
+                <property
+                  dataType="System.String"
+                  description="Destination table"
+                  expressionType="Notify"
+                  name="TableName">"JIRAUSER"."DEFECTDATA"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum errors allowed."
+                  expressionType="Notify"
+                  name="MaxErrors">0</property>
+                <property
+                  dataType="System.String"
+                  description="Table sub-name (Partition, SubPartition)."
+                  expressionType="Notify"
+                  name="TableSubname"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Enables parallel loading of the target table."
+                  expressionType="Notify"
+                  name="Parallel">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Disables target table logging. Used to minimize the amount of redo generated."
+                  expressionType="Notify"
+                  name="NoLogging">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Trasfer data buffer size (KB)."
+                  expressionType="Notify"
+                  name="TransferBufferSize">64</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted in a batch."
+                  expressionType="Notify"
+                  name="BatchSize">100</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows inserted under the same transaction."
+                  expressionType="Notify"
+                  name="TransactionSize">100</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load D3 Data to Defect Data\Defectdata.Connections[MSOraConnection]"
+                  connectionManagerID="{5C92D0D3-E8BD-4705-A9B8-C6207FB0BC25}:invalid"
+                  connectionManagerRefId="{5C92D0D3-E8BD-4705-A9B8-C6207FB0BC25}:invalid"
+                  description="The Oracle runtime connection"
+                  name="MSOraConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Oracle Destination Input"
+                  truncationRowDisposition="FailComponent">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[FILTER_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="FILTER_ID"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[FILTER_ID]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[FILTER_ID]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[ISSUE_TYPE]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="ISSUE_TYPE"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ISSUE_TYPE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[ISSUE_TYPE]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[ISSUE_KEY]"
+                      cachedDataType="wstr"
+                      cachedLength="500"
+                      cachedName="ISSUE_KEY"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ISSUE_KEY]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[ISSUE_KEY]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[SUMMARY]"
+                      cachedDataType="wstr"
+                      cachedLength="1000"
+                      cachedName="SUMMARY"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SUMMARY]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SUMMARY]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[ASSIGNEE]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="ASSIGNEE"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ASSIGNEE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[ASSIGNEE]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[REPORTER]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="REPORTER"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[REPORTER]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[REPORTER]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[RESOLUTION]"
+                      cachedDataType="wstr"
+                      cachedLength="3000"
+                      cachedName="RESOLUTION"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTION]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[RESOLUTION]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[UPDATED]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="UPDATED"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[UPDATED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[UPDATED]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[VERIFIED_DATE]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="VERIFIED_DATE"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[VERIFIED_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[VERIFIED_DATE]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[RESOLVED]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="RESOLVED"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[RESOLVED]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[SLA_DAYS_TO_VERIFIED]"
+                      cachedDataType="r8"
+                      cachedName="SLA_DAYS_TO_VERIFIED"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_TO_VERIFIED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_TO_VERIFIED]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[SLA_DAYS_TO_DONE]"
+                      cachedDataType="r8"
+                      cachedName="SLA_DAYS_TO_DONE"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_TO_DONE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_TO_DONE]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[CREATED]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CREATED"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[CREATED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[CREATED]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[SLA_DAYS_TO_RESOLVED]"
+                      cachedDataType="r8"
+                      cachedName="SLA_DAYS_TO_RESOLVED"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_TO_RESOLVED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_TO_RESOLVED]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[PRIORITY]"
+                      cachedDataType="wstr"
+                      cachedLength="7"
+                      cachedName="PRIORITY"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[PRIORITY]"
+                      lineageId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output].Columns[PRIORITY]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[SEVERITY]"
+                      cachedDataType="wstr"
+                      cachedLength="7"
+                      cachedName="SEVERITY"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SEVERITY]"
+                      lineageId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output].Columns[SEVERITY]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[RESOLVED_DATE]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="RESOLVED_DATE"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[RESOLVED_DATE]" />
+                    <inputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].Columns[STATUS]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="STATUS"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[STATUS]"
+                      lineageId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output].Columns[STATUS]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[FILTER_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FILTER_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ISSUE_TYPE]"
+                      dataType="wstr"
+                      length="50"
+                      name="ISSUE_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ISSUE_KEY]"
+                      dataType="wstr"
+                      length="50"
+                      name="ISSUE_KEY" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SUMMARY]"
+                      dataType="wstr"
+                      length="1000"
+                      name="SUMMARY" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ASSIGNEE]"
+                      dataType="wstr"
+                      length="100"
+                      name="ASSIGNEE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[REPORTER]"
+                      dataType="wstr"
+                      length="100"
+                      name="REPORTER" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[PRIORITY]"
+                      dataType="wstr"
+                      length="50"
+                      name="PRIORITY" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[STATUS]"
+                      dataType="wstr"
+                      length="100"
+                      name="STATUS" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTION]"
+                      dataType="wstr"
+                      length="100"
+                      name="RESOLUTION" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[CREATED]"
+                      dataType="dbTimeStamp"
+                      name="CREATED" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[UPDATED]"
+                      dataType="dbTimeStamp"
+                      name="UPDATED" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[COMPONENTS]"
+                      dataType="wstr"
+                      length="1000"
+                      name="COMPONENTS" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED_DATE]"
+                      dataType="dbTimeStamp"
+                      name="RESOLVED_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[VERIFIED_DATE]"
+                      dataType="dbTimeStamp"
+                      name="VERIFIED_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED]"
+                      dataType="dbTimeStamp"
+                      name="RESOLVED" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SEVERITY]"
+                      dataType="wstr"
+                      length="100"
+                      name="SEVERITY" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ORIGINATING_CUSTOMER]"
+                      dataType="wstr"
+                      length="4000"
+                      name="ORIGINATING_CUSTOMER" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[OTHER_CUSTOMER]"
+                      dataType="wstr"
+                      length="1000"
+                      name="OTHER_CUSTOMER" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_TO_RESOLVED]"
+                      dataType="r8"
+                      name="SLA_DAYS_TO_RESOLVED" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_TO_VERIFIED]"
+                      dataType="r8"
+                      name="SLA_DAYS_TO_VERIFIED" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_TO_DONE]"
+                      dataType="r8"
+                      name="SLA_DAYS_TO_DONE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[GEMS_EXTERNAL_REFERENCE]"
+                      dataType="wstr"
+                      length="500"
+                      name="GEMS_EXTERNAL_REFERENCE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ID]"
+                      dataType="numeric"
+                      name="ID"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[INCIDENT_TYPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="INCIDENT_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_IN_TRIAGE]"
+                      dataType="r8"
+                      name="SLA_DAYS_IN_TRIAGE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[CNS_UPDATE_DATE]"
+                      dataType="dbTimeStamp"
+                      name="CNS_UPDATE_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[CFNS_UPDATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      name="CFNS_UPDATE" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output]"
+                  isErrorOut="true"
+                  name="Oracle Destination Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[FILTER_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[FILTER_ID]"
+                      length="50"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[FILTER_ID]"
+                      name="FILTER_ID" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ISSUE_TYPE]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ISSUE_TYPE]"
+                      length="50"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ISSUE_TYPE]"
+                      name="ISSUE_TYPE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ISSUE_KEY]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ISSUE_KEY]"
+                      length="50"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ISSUE_KEY]"
+                      name="ISSUE_KEY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SUMMARY]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SUMMARY]"
+                      length="1000"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SUMMARY]"
+                      name="SUMMARY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ASSIGNEE]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ASSIGNEE]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ASSIGNEE]"
+                      name="ASSIGNEE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[REPORTER]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[REPORTER]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[REPORTER]"
+                      name="REPORTER" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[PRIORITY]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[PRIORITY]"
+                      length="50"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[PRIORITY]"
+                      name="PRIORITY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[STATUS]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[STATUS]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[STATUS]"
+                      name="STATUS" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[RESOLUTION]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[RESOLUTION]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[RESOLUTION]"
+                      name="RESOLUTION" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[CREATED]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[CREATED]"
+                      name="CREATED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[UPDATED]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[UPDATED]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[UPDATED]"
+                      name="UPDATED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[COMPONENTS]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[COMPONENTS]"
+                      length="1000"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[COMPONENTS]"
+                      name="COMPONENTS" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[RESOLVED_DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[RESOLVED_DATE]"
+                      name="RESOLVED_DATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[VERIFIED_DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[VERIFIED_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[VERIFIED_DATE]"
+                      name="VERIFIED_DATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[RESOLVED]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[RESOLVED]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[RESOLVED]"
+                      name="RESOLVED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SEVERITY]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SEVERITY]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SEVERITY]"
+                      name="SEVERITY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ORIGINATING_CUSTOMER]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ORIGINATING_CUSTOMER]"
+                      length="4000"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ORIGINATING_CUSTOMER]"
+                      name="ORIGINATING_CUSTOMER" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[OTHER_CUSTOMER]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[OTHER_CUSTOMER]"
+                      length="1000"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[OTHER_CUSTOMER]"
+                      name="OTHER_CUSTOMER" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SLA_DAYS_TO_RESOLVED]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_TO_RESOLVED]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SLA_DAYS_TO_RESOLVED]"
+                      name="SLA_DAYS_TO_RESOLVED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SLA_DAYS_TO_VERIFIED]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_TO_VERIFIED]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SLA_DAYS_TO_VERIFIED]"
+                      name="SLA_DAYS_TO_VERIFIED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SLA_DAYS_TO_DONE]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_TO_DONE]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SLA_DAYS_TO_DONE]"
+                      name="SLA_DAYS_TO_DONE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[GEMS_EXTERNAL_REFERENCE]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[GEMS_EXTERNAL_REFERENCE]"
+                      length="500"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[GEMS_EXTERNAL_REFERENCE]"
+                      name="GEMS_EXTERNAL_REFERENCE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ID]"
+                      dataType="numeric"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ID]"
+                      name="ID"
+                      precision="18" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[INCIDENT_TYPE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[INCIDENT_TYPE]"
+                      length="256"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[INCIDENT_TYPE]"
+                      name="INCIDENT_TYPE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SLA_DAYS_IN_TRIAGE]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[SLA_DAYS_IN_TRIAGE]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[SLA_DAYS_IN_TRIAGE]"
+                      name="SLA_DAYS_IN_TRIAGE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[CNS_UPDATE_DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[CNS_UPDATE_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[CNS_UPDATE_DATE]"
+                      name="CNS_UPDATE_DATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[CFNS_UPDATE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input].ExternalColumns[CFNS_UPDATE]"
+                      length="1000"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[CFNS_UPDATE]"
+                      name="CFNS_UPDATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load D3 Data to Defect Data\Defectdata.Outputs[Oracle Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS"
+              componentClassID="Attunity.SSISOraSrc"
+              contactInfo="Oracle Source;Microsoft Connector for Oracle by Attunity; Attunity Ltd.; All Rights Reserved; http://www.attunity.com;7"
+              description="Microsoft Oracle Source Component by Attunity"
+              name="JIRA_D3_FILTERS"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand">select case when resolved is not null then trunc(resolved - created) else trunc(sysdate - created) end as SLA_DAYS_TO_RESOLVED,
+case when severity = 1 then 'S1'
+when severity = 3 then 'S2'
+when severity = 10000 then 'S3'
+when severity = 10100 then 'S4'
+when severity is null then 'Not Set' end AS SEVERITY,
+case
+when priority = 1 then 'P1'
+when priority = 3 then 'P2'
+when priority = 10000 then 'P3'
+when priority = 10100 then 'P4'
+when priority is null then 'Not Set' end AS PRIORITY,
+case
+when status = 'Created' then 'Not Started'
+when status = 'Hold' then 'On Hold'
+when status = 'In Code Review' then 'In Review'
+when status = 'In QA' then 'QA In Progress'
+when status = 'In Review/Analysis' then 'In Analysis'
+when status = 'Ready for Development' then 'Ready For Dev'
+when status = 'Ready for QA Testing' then 'Ready For QA'
+when status = 'Ready for Review/Analysis' then 'Suspended, Awaiting Verification'
+when status = 'Wait Client' then 'More Info' 
+when resolution in ('Won''t Do','Duplicate','Cannot Reproduce') then 'Withdrawn'
+else a.status end status,
+a.Filter_id,a.issue_type,a.issue_key,a.summary,a.assignee,a.reporter,a.resolution,a.created,a.resolved_date,a.updated,
+a.verified_date,a.resolved,a.sla_days_to_verified,a.sla_days_to_done,a.SLA_DAYS_IN_TRIAGE,a.CNS_UPDATE_DATE,a.CFNS_UPDATE
+ from (select * from jira_d3_filters)a</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows fetched in a batch."
+                  expressionType="Notify"
+                  name="BatchSize">100</property>
+                <property
+                  dataType="System.Int32"
+                  description="Number of pre-fetched rows."
+                  expressionType="Notify"
+                  name="PrefetchCount">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Connections[MSOraConnection]"
+                  connectionManagerID="{5C92D0D3-E8BD-4705-A9B8-C6207FB0BC25}:invalid"
+                  connectionManagerRefId="{5C92D0D3-E8BD-4705-A9B8-C6207FB0BC25}:invalid"
+                  description="The Oracle runtime connection"
+                  name="MSOraConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output]"
+                  errorRowDisposition="FailComponent"
+                  name="Oracle Source Output"
+                  truncationRowDisposition="FailComponent">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_TO_RESOLVED]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_TO_RESOLVED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_TO_RESOLVED]"
+                      name="SLA_DAYS_TO_RESOLVED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[FILTER_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[FILTER_ID]"
+                      length="50"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[FILTER_ID]"
+                      name="FILTER_ID" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[PRIORITY]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[PRIORITY]"
+                      length="7"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[PRIORITY]"
+                      name="PRIORITY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[ISSUE_TYPE]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[ISSUE_TYPE]"
+                      length="50"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[ISSUE_TYPE]"
+                      name="ISSUE_TYPE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[ISSUE_KEY]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[ISSUE_KEY]"
+                      length="500"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[ISSUE_KEY]"
+                      name="ISSUE_KEY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SUMMARY]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SUMMARY]"
+                      length="1000"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SUMMARY]"
+                      name="SUMMARY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[ASSIGNEE]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[ASSIGNEE]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[ASSIGNEE]"
+                      name="ASSIGNEE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[REPORTER]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[REPORTER]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[REPORTER]"
+                      name="REPORTER" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[STATUS]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[STATUS]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[STATUS]"
+                      name="STATUS" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[RESOLUTION]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[RESOLUTION]"
+                      length="3000"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[RESOLUTION]"
+                      name="RESOLUTION" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[UPDATED]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[UPDATED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[UPDATED]"
+                      name="UPDATED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[CREATED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[CREATED]"
+                      name="CREATED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[RESOLVED_DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[RESOLVED_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[RESOLVED_DATE]"
+                      name="RESOLVED_DATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[VERIFIED_DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[VERIFIED_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[VERIFIED_DATE]"
+                      name="VERIFIED_DATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[RESOLVED]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[RESOLVED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[RESOLVED]"
+                      name="RESOLVED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SEVERITY]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SEVERITY]"
+                      length="7"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SEVERITY]"
+                      name="SEVERITY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_TO_VERIFIED]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_TO_VERIFIED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_TO_VERIFIED]"
+                      name="SLA_DAYS_TO_VERIFIED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_TO_DONE]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_TO_DONE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_TO_DONE]"
+                      name="SLA_DAYS_TO_DONE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_IN_TRIAGE]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_IN_TRIAGE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[SLA_DAYS_IN_TRIAGE]"
+                      name="SLA_DAYS_IN_TRIAGE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[CNS_UPDATE_DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[CNS_UPDATE_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[CNS_UPDATE_DATE]"
+                      name="CNS_UPDATE_DATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[CFNS_UPDATE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[CFNS_UPDATE]"
+                      length="1000"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].Columns[CFNS_UPDATE]"
+                      name="CFNS_UPDATE" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_TO_RESOLVED]"
+                      dataType="r8"
+                      name="SLA_DAYS_TO_RESOLVED" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SEVERITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="SEVERITY" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[PRIORITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="PRIORITY" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[STATUS]"
+                      dataType="wstr"
+                      length="100"
+                      name="STATUS" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[FILTER_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FILTER_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[ISSUE_TYPE]"
+                      dataType="wstr"
+                      length="50"
+                      name="ISSUE_TYPE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[ISSUE_KEY]"
+                      dataType="wstr"
+                      length="500"
+                      name="ISSUE_KEY" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SUMMARY]"
+                      dataType="wstr"
+                      length="1000"
+                      name="SUMMARY" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[ASSIGNEE]"
+                      dataType="wstr"
+                      length="100"
+                      name="ASSIGNEE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[REPORTER]"
+                      dataType="wstr"
+                      length="100"
+                      name="REPORTER" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[RESOLUTION]"
+                      dataType="wstr"
+                      length="3000"
+                      name="RESOLUTION" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[CREATED]"
+                      dataType="dbTimeStamp"
+                      name="CREATED" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[RESOLVED_DATE]"
+                      dataType="dbTimeStamp"
+                      name="RESOLVED_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[UPDATED]"
+                      dataType="dbTimeStamp"
+                      name="UPDATED" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[VERIFIED_DATE]"
+                      dataType="dbTimeStamp"
+                      name="VERIFIED_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[RESOLVED]"
+                      dataType="dbTimeStamp"
+                      name="RESOLVED" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_TO_VERIFIED]"
+                      dataType="r8"
+                      name="SLA_DAYS_TO_VERIFIED" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_TO_DONE]"
+                      dataType="r8"
+                      name="SLA_DAYS_TO_DONE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_IN_TRIAGE]"
+                      dataType="r8"
+                      name="SLA_DAYS_IN_TRIAGE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[CNS_UPDATE_DATE]"
+                      dataType="dbTimeStamp"
+                      name="CNS_UPDATE_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[CFNS_UPDATE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1000"
+                      name="CFNS_UPDATE" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output]"
+                  isErrorOut="true"
+                  name="Oracle Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SLA_DAYS_TO_RESOLVED]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_TO_RESOLVED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SLA_DAYS_TO_RESOLVED]"
+                      name="SLA_DAYS_TO_RESOLVED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[FILTER_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[FILTER_ID]"
+                      length="50"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[FILTER_ID]"
+                      name="FILTER_ID" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[PRIORITY]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[PRIORITY]"
+                      length="7"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[PRIORITY]"
+                      name="PRIORITY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[ISSUE_TYPE]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[ISSUE_TYPE]"
+                      length="50"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[ISSUE_TYPE]"
+                      name="ISSUE_TYPE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[ISSUE_KEY]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[ISSUE_KEY]"
+                      length="500"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[ISSUE_KEY]"
+                      name="ISSUE_KEY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SUMMARY]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SUMMARY]"
+                      length="1000"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SUMMARY]"
+                      name="SUMMARY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[ASSIGNEE]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[ASSIGNEE]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[ASSIGNEE]"
+                      name="ASSIGNEE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[REPORTER]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[REPORTER]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[REPORTER]"
+                      name="REPORTER" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[STATUS]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[STATUS]"
+                      length="100"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[STATUS]"
+                      name="STATUS" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[RESOLUTION]"
+                      dataType="wstr"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[RESOLUTION]"
+                      length="3000"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[RESOLUTION]"
+                      name="RESOLUTION" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[UPDATED]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[UPDATED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[UPDATED]"
+                      name="UPDATED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[CREATED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[CREATED]"
+                      name="CREATED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[RESOLVED_DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[RESOLVED_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[RESOLVED_DATE]"
+                      name="RESOLVED_DATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[VERIFIED_DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[VERIFIED_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[VERIFIED_DATE]"
+                      name="VERIFIED_DATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[RESOLVED]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[RESOLVED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[RESOLVED]"
+                      name="RESOLVED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SEVERITY]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SEVERITY]"
+                      length="7"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SEVERITY]"
+                      name="SEVERITY" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SLA_DAYS_TO_VERIFIED]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_TO_VERIFIED]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SLA_DAYS_TO_VERIFIED]"
+                      name="SLA_DAYS_TO_VERIFIED" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SLA_DAYS_TO_DONE]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_TO_DONE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SLA_DAYS_TO_DONE]"
+                      name="SLA_DAYS_TO_DONE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SLA_DAYS_IN_TRIAGE]"
+                      dataType="r8"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[SLA_DAYS_IN_TRIAGE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[SLA_DAYS_IN_TRIAGE]"
+                      name="SLA_DAYS_IN_TRIAGE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[CNS_UPDATE_DATE]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[CNS_UPDATE_DATE]"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[CNS_UPDATE_DATE]"
+                      name="CNS_UPDATE_DATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[CFNS_UPDATE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output].ExternalColumns[CFNS_UPDATE]"
+                      length="1000"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[CFNS_UPDATE]"
+                      name="CFNS_UPDATE" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load D3 Data to Defect Data.Paths[Data Conversion Output]"
+              endId="Package\Load D3 Data to Defect Data\Defectdata.Inputs[Oracle Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Load D3 Data to Defect Data\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Load D3 Data to Defect Data.Paths[Oracle Source Output]"
+              endId="Package\Load D3 Data to Defect Data\Data Conversion.Inputs[Data Conversion Input]"
+              name="Oracle Source Output"
+              startId="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS.Outputs[Oracle Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Jira Defects"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{3802648A-A4D0-489E-AF2E-F6D0E458E506}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Jira Defects"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Executable">@[$Project::Jira_RestAPI_Source]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="E:\App\APPDQuality\Prod\run.bat"
+          WindowStyle="Minimized" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load to jira_D3_filters"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Load using python script"
+      DTS:DTSID="{bf6e5264-2cd9-420a-971f-6f7becb9a37a}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load to jira_D3_filters"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="E:\Python Scripts\D3_Jira_Scripts\D3 External Quality\D3_Defectdata.bat"
+          WorkingDirectory="E:\Python Scripts\D3_Jira_Scripts\D3 External Quality" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\MERGE INTO Defectdata"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{57782588-359B-4DF9-9AD7-8D9E13D2EF8D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="MERGE INTO Defectdata"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F4107AD-04FB-494B-9AE6-D531330D669D}"
+          SQLTask:SqlStatementSource="MERGE INTO defectdata trg &#xA;USING (SELECT * FROM MRR_Defectdata ) src&#xA;ON (trg.FILTER_ID = src.FILTER_ID &#xA;and trg.Issue_Key = src.Issue_Key)&#xA;&#xA;WHEN MATCHED THEN UPDATE SET&#xA;trg.Issue_Type = src.Issue_Type,&#xA;trg.Summary = src.Summary, &#xA;trg.Assignee = src.Assignee, &#xA;trg.Reporter = src.Reporter, &#xA;trg.Priority = src.Priority,&#xA;trg.Status = src.Status,&#xA;trg.Resolution = src.Resolution,&#xA;trg.Created = src.Created,&#xA;trg.updated = src.updated,&#xA;trg.components = src.components,&#xA;trg.Resolved_Date = src.Resolved_Date,&#xA;trg.Verified_Date = src.Verified_Date,&#xA;trg.Resolved = src.Resolved,&#xA;trg.Severity = src.Severity,&#xA;trg.Originating_Customer = src.Originating_Customer,&#xA;trg.Other_Customer = src.Other_Customer, &#xA;trg.SLA_Days_to_Resolved = src.SLA_Days_to_Resolved,&#xA;trg.SLA_Days_to_Verified = src.SLA_Days_to_Verified,&#xA;trg.SLA_Days_to_Done = src.SLA_Days_to_Done, &#xA;trg.GEMS_EXTERNAL_REFERENCE = src.GEMS_EXTERNAL_REFERENCE,&#xA;trg.ID = src.ID,&#xA;trg.Incident_Type = src.Incident_Type,&#xA;trg.SLA_DAYS_IN_TRIAGE = src.SLA_DAYS_IN_TRIAGE,&#xA;trg.CNS_UPDATE_DATE = src.CNS_UPDATE_DATE,&#xA;trg.CFNS_UPDATE = src.CFNS_UPDATE&#xA;&#xA;WHEN NOT MATCHED THEN INSERT (&#xA;trg.FILTER_ID,&#xA;trg.Issue_Type,&#xA;trg.Issue_Key, &#xA;trg.Summary, &#xA;trg.Assignee, &#xA;trg.Reporter, &#xA;trg.Priority,&#xA;trg.Status,&#xA;trg.Resolution,&#xA;trg.Created,&#xA;trg.updated,&#xA;trg.components,&#xA;trg.Resolved_Date,&#xA;trg.Verified_Date,&#xA;trg.Resolved,&#xA;trg.Severity,&#xA;trg.Originating_Customer,&#xA;trg.Other_Customer, &#xA;trg.SLA_Days_to_Resolved,&#xA;trg.SLA_Days_to_Verified,&#xA;trg.SLA_Days_to_Done, &#xA;trg.GEMS_EXTERNAL_REFERENCE,&#xA;trg.ID,&#xA;trg.Incident_Type,&#xA;trg.SLA_DAYS_IN_TRIAGE,&#xA;trg.CNS_UPDATE_DATE,&#xA;trg.CFNS_UPDATE&#xA;)&#xA;VALUES (&#xA;src.FILTER_ID,&#xA;src.Issue_Type,&#xA;src.Issue_Key,&#xA;src.Summary,&#xA;src.Assignee, &#xA;src.Reporter, &#xA;src.Priority,&#xA;src.Status,&#xA;src.Resolution,&#xA;src.Created,&#xA;src.updated,&#xA;src.components,&#xA;src.Resolved_Date,&#xA;src.Verified_Date,&#xA;src.Resolved,&#xA;src.Severity,&#xA;src.Originating_Customer,&#xA;src.Other_Customer, &#xA;src.SLA_Days_to_Resolved,&#xA;src.SLA_Days_to_Verified,&#xA;src.SLA_Days_to_Done, &#xA;src.GEMS_EXTERNAL_REFERENCE,&#xA;src.ID,&#xA;src.Incident_Type,&#xA;src.SLA_DAYS_IN_TRIAGE,&#xA;src.CNS_UPDATE_DATE,&#xA;src.CFNS_UPDATE&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\MRR_DEFECTDATA Excel Backup"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{7B60BBC3-4DC7-4DF4-91EE-871DB3CB95F1}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="MRR_DEFECTDATA Excel Backup"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="E:\App\APPDQuality\Mrr_DefectData_Jira_BackUp\Mrr_DefectData_Jira_BackUp.bat"
+          WorkingDirectory="E:\App\APPDQuality\Mrr_DefectData_Jira_BackUp" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate MRR_DEFECTDATA"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3d40ed09-eedf-4728-97d6-d4b74d67e9df}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate MRR_DEFECTDATA"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F4107AD-04FB-494B-9AE6-D531330D669D}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="truncate table MRR_DEFECTDATA" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{1FE8096A-3776-412A-874E-05A3B408D9B8}"
+      DTS:From="Package\Load Jira Defects"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DELETE DUPLICATES IN MRR_DEFECTDATA" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{DCFAA87C-9097-4D9A-85F2-5A2C5F6164C7}"
+      DTS:From="Package\Truncate MRR_DEFECTDATA"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Load Jira Defects" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{1195D2D0-C5F9-4511-9703-04557545152C}"
+      DTS:From="Package\DELETE DUPLICATES IN MRR_DEFECTDATA"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\MERGE INTO Defectdata" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{520FD04C-5FD2-4B97-A6CF-1A6589106331}"
+      DTS:From="Package\DELETE FROM Defectdata"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\DELETE D3 DATA FROM Defectdata" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{BF1F4500-7B81-4C0D-99A7-2937D8EDD737}"
+      DTS:From="Package\MERGE INTO Defectdata"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\DELETE FROM Defectdata" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{E4368671-9EB2-49F6-A4D7-389FC2EEFDCB}"
+      DTS:From="Package\MRR_DEFECTDATA Excel Backup"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Truncate MRR_DEFECTDATA" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{6384156C-DEA6-4920-BF07-47A340209CEB}"
+      DTS:From="Package\DELETE D3 DATA FROM Defectdata"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\Load to jira_D3_filters" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
+      DTS:CreationName=""
+      DTS:DTSID="{06D8C6A7-29CD-48A3-9293-C52F799DE288}"
+      DTS:From="Package\Load to jira_D3_filters"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 9"
+      DTS:To="Package\Load D3 Data to Defect Data" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="288,42"
+          Id="Package\DELETE D3 DATA FROM Defectdata"
+          TopLeft="236.759259259259,473" />
+        <NodeLayout
+          Size="288,42"
+          Id="Package\DELETE DUPLICATES IN MRR_DEFECTDATA"
+          TopLeft="236.759259259259,249" />
+        <NodeLayout
+          Size="288,42"
+          Id="Package\DELETE FROM Defectdata"
+          TopLeft="236.759259259259,393" />
+        <NodeLayout
+          Size="288,42"
+          Id="Package\Load D3 Data to Defect Data"
+          TopLeft="236.759259259259,617" />
+        <NodeLayout
+          Size="288,42"
+          Id="Package\Load Jira Defects"
+          TopLeft="236.759259259259,177" />
+        <NodeLayout
+          Size="288,42"
+          Id="Package\Load to jira_D3_filters"
+          TopLeft="236.759259259259,545" />
+        <NodeLayout
+          Size="288,42"
+          Id="Package\MERGE INTO Defectdata"
+          TopLeft="236.759259259259,321" />
+        <NodeLayout
+          Size="288,42"
+          Id="Package\MRR_DEFECTDATA Excel Backup"
+          TopLeft="236.759259259259,30" />
+        <NodeLayout
+          Size="288,42"
+          Id="Package\Truncate MRR_DEFECTDATA"
+          TopLeft="236.759259259259,105" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="380.759259259259,219">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30"
+              Start="0,0"
+              End="0,22.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="380.759259259259,147">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30"
+              Start="0,0"
+              End="0,22.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="380.759259259259,291">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30"
+              Start="0,0"
+              End="0,22.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="380.759259259259,435">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="380.759259259259,363">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30"
+              Start="0,0"
+              End="0,22.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="380.759259259259,72">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="380.759259259259,515">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30"
+              Start="0,0"
+              End="0,22.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 9]"
+          TopLeft="380.759259259259,587">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30"
+              Start="0,0"
+              End="0,22.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load D3 Data to Defect Data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Load D3 Data to Defect Data\Defectdata"
+          TopLeft="352,202" />
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Load D3 Data to Defect Data\JIRA_D3_FILTERS"
+          TopLeft="324,42" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Load D3 Data to Defect Data\Data Conversion"
+          TopLeft="339,122" />
+        <EdgeLayout
+          Id="Package\Load D3 Data to Defect Data.Paths[Oracle Source Output]"
+          TopLeft="406.5,84">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="10.5,38"
+              Start="0,0"
+              End="10.5,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15"
+                    Point2="0,19"
+                    Point3="4,19" />
+                  <mssgle:LineSegment
+                    End="6.5,19" />
+                  <mssgle:CubicBezierSegment
+                    Point1="6.5,19"
+                    Point2="10.5,19"
+                    Point3="10.5,23" />
+                  <mssgle:LineSegment
+                    End="10.5,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load D3 Data to Defect Data.Paths[Data Conversion Output]"
+          TopLeft="417,164">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load D3 Data to Defect Data\Defectdata">
+    <Properties>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="LEO_Source_OLEDB"
+  DTS:DTSID="{4F241178-F9DB-464E-AC96-115CD753D4AD}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=acbicentralus.database.windows.net;User ID=NCRengtools_user;Initial Catalog=NCRengtools_DW;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1dmAbWc0FkWv07Wf90mg7AAAAAACAAAAAAADZgAAwAAAABAAAADyXodOL9dwJvZoEBEB4s0hAAAAAASAAACgAAAAEAAAAJt7R5bN+I1K2mNkG+nDadiAAAAA/IqD41ps5Oy7MEzry21a96KY50PXN7EiDyY3rn/lT7ymTJfnkun/KxNTjQuaxgmDIYsxQUNVaiUggRpmyVKPCmrMn/EGRE0ScNAlDudWAKsrf4FVEtdiAoYJJ9NEkDn6aLPXDU/t0nSao0DSHVJZ1iMWtbBmnDWP7V5OvB6K1eMUAAAAkdEPClaanEBFnPPXBUupDXKdX5U=</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

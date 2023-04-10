@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="Jira_OLEDB_Source"
+  DTS:DTSID="{34BE9F85-A4F3-4CF2-871E-4C7F5BCC261D}"
+  DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="ConnectionString">@[$Project::Jira_OLEDB_Source]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=JIRASTD;User ID=da230140;Provider=OraOLEDB.Oracle;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxEwxkgIuUiaC1p0S2QH9wAAAAACAAAAAAADZgAAwAAAABAAAAByAmNb7NQkOI5KUvhuXBilAAAAAASAAACgAAAAEAAAAIUklX1dvL2JLS82DEOpVtF4AAAAko6JD+kmG5LCFwGilIOUtMS4zPdF/LFqFN+tB5NPieco8F5sjr+BzKIVPMm1dFjP4lCxLyr04FzFxPfRyDtWAwOU77z8k+vwvySZvQbD+5/LZ8/+NwdRMFRQFaLJ5jAC8GgIYxUvIY87r4NeCMt7Do2ILwwNneQRFAAAADpD80WdqxmD3lZv+hl7gvITmQKy</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

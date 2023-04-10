@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="Oracle_Destination_Attunity"
+  DTS:DTSID="{5C92D0D3-E8BD-4705-A9B8-C6207FB0BC25}"
+  DTS:CreationName="MSORA">
+  <DTS:PropertyExpression
+    DTS:Name="ConnectionString">@[$Project::Oracle_Destination_Attunity]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <OracleXMLPackage>
+      <OraConnectionString>SERVER=APPD;USERNAME=jirauser;ORACLEHOME=;ORACLEHOME64=;WINAUTH=0</OraConnectionString>
+      <OraRetain>False</OraRetain>
+      <OraInitialCatalog></OraInitialCatalog>
+      <OraServerName>APPD</OraServerName>
+      <OraUserName>jirauser</OraUserName>
+      <OraOracleHome></OraOracleHome>
+      <OraOracleHome64></OraOracleHome64>
+      <OraWinAuthentication>False</OraWinAuthentication>
+      <OraEnableDetailedTracing>False</OraEnableDetailedTracing>
+      <OraPassword
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhxEwxkgIuUiaC1p0S2QH9wAAAAACAAAAAAADZgAAwAAAABAAAADvspqvBc3ipQJT9mstf3GNAAAAAASAAACgAAAAEAAAAOt1k21o/0NyuwJ45+sp15g4AAAAzCPJTZAxpGoBPKkzF4BY1D4GfEhdQX2qZDE7ch98ipfOC1oaSo6K4Ss6JNU9Z4eRk6jhsPIN+NoUAAAAEp7SyGoAenTeHdJy2oBcKThCSK4=</OraPassword>
+    </OracleXMLPackage>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
